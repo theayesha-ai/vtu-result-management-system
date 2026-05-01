@@ -1,0 +1,158 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Font Faces ───────────────────────────────────────────────── */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("/assets/fonts/BricolageGrotesque-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("/assets/fonts/PlusJakartaSans-Variable.woff2") format("woff2");
+  font-weight: 200 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("/assets/fonts/Fraunces-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+
+    /* Navy blue primary palette — VTU academic identity */
+    --background: 0.97 0.008 240;
+    --foreground: 0.15 0.04 255;
+
+    --card: 1 0 0;
+    --card-foreground: 0.15 0.04 255;
+
+    --popover: 1 0 0;
+    --popover-foreground: 0.15 0.04 255;
+
+    /* Deep navy primary */
+    --primary: 0.28 0.09 258;
+    --primary-foreground: 0.98 0 0;
+
+    /* Light secondary */
+    --secondary: 0.93 0.015 255;
+    --secondary-foreground: 0.28 0.09 258;
+
+    /* Muted tones */
+    --muted: 0.94 0.012 250;
+    --muted-foreground: 0.52 0.04 255;
+
+    /* Gold accent — VTU signature */
+    --accent: 0.82 0.15 75;
+    --accent-foreground: 0.18 0.04 258;
+
+    /* Destructive red */
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 0.985 0 0;
+
+    --border: 0.88 0.02 250;
+    --input: 0.88 0.02 250;
+    --ring: 0.45 0.12 258;
+
+    /* Chart palette — semester performance */
+    --chart-1: 0.48 0.18 258;
+    --chart-2: 0.72 0.16 75;
+    --chart-3: 0.55 0.14 200;
+    --chart-4: 0.65 0.18 140;
+    --chart-5: 0.62 0.22 30;
+
+    --sidebar: 0.22 0.07 258;
+    --sidebar-foreground: 0.95 0 0;
+    --sidebar-primary: 0.72 0.16 75;
+    --sidebar-primary-foreground: 0.18 0.04 258;
+    --sidebar-accent: 0.30 0.08 258;
+    --sidebar-accent-foreground: 0.95 0 0;
+    --sidebar-border: 0.35 0.06 258;
+    --sidebar-ring: 0.72 0.16 75;
+
+    /* Custom VTU tokens */
+    --navy: 0.22 0.09 258;
+    --navy-light: 0.32 0.09 258;
+    --navy-dark: 0.15 0.07 258;
+    --gold: 0.78 0.17 75;
+    --gold-light: 0.88 0.14 80;
+    --gold-dark: 0.65 0.18 68;
+    --success: 0.58 0.16 145;
+    --success-foreground: 0.98 0 0;
+    --warning: 0.72 0.18 60;
+    --warning-foreground: 0.15 0.04 258;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+
+  h1, h2, h3 {
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-weight: 700;
+  }
+}
+
+/* ─── VTU Print Styles ──────────────────────────────────────────── */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .result-card {
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+  }
+}
+
+.print-only {
+  display: none;
+}
+
+/* ─── Custom VTU Components ─────────────────────────────────────── */
+.vtu-header-gradient {
+  background: linear-gradient(135deg, oklch(0.18 0.08 258) 0%, oklch(0.28 0.12 255) 50%, oklch(0.22 0.09 258) 100%);
+}
+
+.vtu-gold-accent {
+  background: linear-gradient(90deg, oklch(0.78 0.17 75) 0%, oklch(0.85 0.16 80) 100%);
+}
+
+.grade-s { background: oklch(0.88 0.14 145); color: oklch(0.25 0.12 145); }
+.grade-a { background: oklch(0.88 0.12 200); color: oklch(0.22 0.10 200); }
+.grade-b { background: oklch(0.90 0.10 258); color: oklch(0.28 0.09 258); }
+.grade-c { background: oklch(0.92 0.08 258); color: oklch(0.35 0.08 258); }
+.grade-d { background: oklch(0.94 0.08 75); color: oklch(0.45 0.12 65); }
+.grade-e { background: oklch(0.94 0.08 60); color: oklch(0.48 0.14 55); }
+.grade-f { background: oklch(0.92 0.12 27); color: oklch(0.40 0.18 27); }
+
+.table-row-even {
+  background: oklch(0.97 0.006 250);
+}
+.table-row-odd {
+  background: oklch(1 0 0);
+}
+
+/* Focus ring override for VTU palette */
+:focus-visible {
+  outline: 2px solid oklch(0.72 0.16 75);
+  outline-offset: 2px;
+}

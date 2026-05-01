@@ -1,0 +1,68 @@
+// Version: 1.0.0
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type Map__158565046<K, V> = Map__297112838<K, V>;
+type Map__297112838<K, V> =
+  {var root : Node__46230540<K, V>; var size : Nat__490723111};
+type Map__605269027<K, V> = Map__158565046<K, V>;
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type SemesterResult__805842042 =
+  {
+    credits : Nat;
+    externalMarks : Nat;
+    grade : Text;
+    gradePoints : Nat;
+    internalMarks : Nat;
+    subjectCode : SubjectCode__257699002;
+    subjectName : Text;
+    totalMarks : Nat
+  };
+type Semester__1044159754 = Nat;
+type Student__975845730 =
+  {
+    currentSemester : Semester__1044159754;
+    dob : Text;
+    name : Text;
+    usn : USN__570025330
+  };
+type SubjectCode__257699002 = Text;
+type USN__570025330 = Text;
+type UserProfile__491224006 = {name : Text; usn : ?USN__570025330};
+type UserRole__1073662873 = {#admin; #guest; #user};
+actor {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__605269027<Principal, UserRole__1073662873>
+    };
+  stable principalToUSN :
+    {
+      var root : Node__46230540<Principal, USN__570025330>;
+      var size : Nat__490723111
+    };
+  stable resultsMap :
+    {
+      var root :
+        Node__46230540<USN__570025330,
+                        Map__605269027<Semester__1044159754,
+                                        Map__605269027<SubjectCode__257699002,
+                                                        SemesterResult__805842042>>>;
+      var size : Nat__490723111
+    };
+  stable studentsMap :
+    {
+      var root : Node__46230540<USN__570025330, Student__975845730>;
+      var size : Nat__490723111
+    };
+  stable userProfiles :
+    {
+      var root : Node__46230540<Principal, UserProfile__491224006>;
+      var size : Nat__490723111
+    }
+};

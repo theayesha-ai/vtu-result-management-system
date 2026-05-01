@@ -1,0 +1,66 @@
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UserProfile = 
+ record {
+   name: text;
+   usn: opt USN;
+ };
+type USN = text;
+type SubjectCode = text;
+type StudentResults = 
+ record {
+   allSemesterResults: vec SemesterResults;
+   cgpa: float64;
+   student: Student;
+ };
+type Student = 
+ record {
+   currentSemester: Semester;
+   dob: text;
+   name: text;
+   usn: USN;
+ };
+type SemesterResults = 
+ record {
+   results: vec SemesterResult;
+   semester: Semester;
+   sgpa: float64;
+ };
+type SemesterResult = 
+ record {
+   credits: nat;
+   externalMarks: nat;
+   grade: text;
+   gradePoints: nat;
+   internalMarks: nat;
+   subjectCode: SubjectCode;
+   subjectName: text;
+   totalMarks: nat;
+ };
+type Semester = nat;
+service : {
+  _initializeAccessControl: () -> ();
+  addOrUpdateResult: (usn: USN, semester: Semester, subjectCode: SubjectCode,
+   subjectName: text, internalMarks: nat, externalMarks: nat, credits:
+   nat) -> ();
+  addStudent: (student: Student) -> ();
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  deleteResult: (usn: USN, semester: Semester, subjectCode: SubjectCode) ->
+   ();
+  deleteStudent: (usn: USN) -> ();
+  getAllStudents: () -> (vec Student) query;
+  getCallerUserProfile: () -> (opt UserProfile) query;
+  getCallerUserRole: () -> (UserRole) query;
+  getSemesterResults: (usn: USN, semester: Semester) ->
+   (SemesterResults) query;
+  getStudentResults: (usn: USN) -> (StudentResults) query;
+  getUserProfile: (user: principal) -> (opt UserProfile) query;
+  isCallerAdmin: () -> (bool) query;
+  saveCallerUserProfile: (profile: UserProfile) -> ();
+  studentLogin: (usn: USN, name: text) -> (bool);
+  updateStudent: (student: Student) -> ();
+}
